@@ -8,3 +8,4 @@ Este repositioro tiene como objetivo contener los códigos que se desarrollen a 
 * Transformada de Hough
 
 ### PIA
+Desarrollar alguna aplicación referente a sistemas de visión aplicaciones de IA.
