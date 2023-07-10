@@ -3,11 +3,15 @@ import numpy as np
 import pandas as pd
 import cv2
 import time 
+import streamlit.components.v1 as components
+
+st.set_page_config(layout="wide")
 
 with open("description.txt", encoding="utf-8") as f:
     text = f.read()
 
 imagen = cv2.imread("617.tif")
+
 
 def detectar_lineas(imagen_path):   
     imagen = cv2.imread(imagen_path)
@@ -31,8 +35,25 @@ def detectar_lineas(imagen_path):
 
 imagen_lineas = detectar_lineas("617.tif")
 
-st.title("Prodcuto Integrador de Aprendizaje")
-st.subheader("Visión Computacional :eye:")
+url_string = "https://img.freepik.com/free-vector/white-abstract-background-design_23-2148825582.jpg"
+
+st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background: url("{url_string}");
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+st.markdown("<h1 style='text-align:center;'>Prodcuto Integrador de Aprendizaje</h1>",
+         unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("<h2 style='text-align:center;'>Visión Computacional</h2>",
+            unsafe_allow_html=True)
 st.write(text)
 
 
@@ -40,7 +61,3 @@ st.image([imagen, imagen_lineas],
          width=250,
          caption=["Imagen Original",
                   "Imagen con LSD"])
-
-
-
-
