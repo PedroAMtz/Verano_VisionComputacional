@@ -1,5 +1,0 @@
-El próposito de este proyecto es implementar una aplicación que funcione como interfaz de usuario
-para aplicaciones de visión por computadora, específicamente en la tarea de anotación en imágenes.
-Se consideran algunos de los algoritmos y filtros estudiados en clase, los cuales logramos integrar 
-en esta aplicación, logrando funcionalidades como detección de bordes, detección de objetos y métodos
-para la segmentación a partir de la detección de bordes.
