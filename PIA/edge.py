@@ -46,6 +46,8 @@ def _dibujar_lineas(img, lineas):
                 
     return imagen_lineas
 
+# Funciones de utilidad
+
 def dibujar_lineas(img, lineas, lsd):
     img_lineas = np.zeros_like(img)
     try:
@@ -54,11 +56,26 @@ def dibujar_lineas(img, lineas, lsd):
         print("No hay lineas que dibujar.")
     return img_lineas
 
+def escalar_dims(img, pct_escala=50):
+    alto = img.shape[0] * pct_escala / 100
+    ancho = img.shape[1] * pct_escala / 100
+
+    return (int(ancho), int(alto))
+
+
+def resize_imagenes(lista_img):
+    resized_imgs = []
+    for index, imagen in enumerate(lista_img):
+        img_para_resize = cv2.resize(imagen, escalar_dims(imagen))
+        resized_imgs.append(img_para_resize)
+    return resized_imgs
+
+
 # LineSegementDetector construnctor
 line_sd = cv2.createLineSegmentDetector()
 
 
-cap = cv2.VideoCapture("test1.mp4")
+cap = cv2.VideoCapture("test_video.mp4")
 frame_count = 0
 while(cap.isOpened()):
     _, frame = cap.read()
@@ -73,21 +90,12 @@ while(cap.isOpened()):
     lineas_imagen = detectar_lineas(cropped_canny, line_sd)
     imagen_lsd = _dibujar_lineas(frame, lineas_imagen)
 
-# New feature, might be a function later
-    scale_percent = 40 # percent of original size
-    width = int(frame.shape[1] * scale_percent / 100)
-    height = int(frame.shape[0] * scale_percent / 100)
-    dim = (width, height)
-  
-    resized_canny = cv2.resize(canny_image, dim)
-    resized_final = cv2.resize(imagen_lsd, dim)
-    resized_cropped = cv2.resize(cropped_canny, dim)
+    lista_imgs = [canny_image, cropped_canny, imagen_lsd]
+    imgs_para_mostrar = resize_imagenes(lista_imgs)
 
-
-
-    resized_canny = cv2.cvtColor(resized_canny, cv2.COLOR_GRAY2BGR)
-    resized_cropped = cv2.cvtColor(resized_cropped, cv2.COLOR_GRAY2BGR)
-    doble = np.hstack((resized_canny, resized_cropped, resized_final), casting='safe')
+    resized_canny = cv2.cvtColor(imgs_para_mostrar[0], cv2.COLOR_GRAY2BGR)
+    resized_cropped = cv2.cvtColor(imgs_para_mostrar[1], cv2.COLOR_GRAY2BGR)
+    doble = np.hstack((resized_canny, resized_cropped, imgs_para_mostrar[2]), casting='safe')
 
     cv2.imshow("canny_edges", doble)
     
