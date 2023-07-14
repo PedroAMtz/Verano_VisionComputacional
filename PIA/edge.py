@@ -72,7 +72,24 @@ while(cap.isOpened()):
     cropped_canny = region_interes(canny_image)
     lineas_imagen = detectar_lineas(cropped_canny, line_sd)
     imagen_lsd = _dibujar_lineas(frame, lineas_imagen)
-    cv2.imshow("canny_edges", imagen_lsd)
+
+# New feature, might be a function later
+    scale_percent = 40 # percent of original size
+    width = int(frame.shape[1] * scale_percent / 100)
+    height = int(frame.shape[0] * scale_percent / 100)
+    dim = (width, height)
+  
+    resized_canny = cv2.resize(canny_image, dim)
+    resized_final = cv2.resize(imagen_lsd, dim)
+    resized_cropped = cv2.resize(cropped_canny, dim)
+
+
+
+    resized_canny = cv2.cvtColor(resized_canny, cv2.COLOR_GRAY2BGR)
+    resized_cropped = cv2.cvtColor(resized_cropped, cv2.COLOR_GRAY2BGR)
+    doble = np.hstack((resized_canny, resized_cropped, resized_final), casting='safe')
+
+    cv2.imshow("canny_edges", doble)
     
     if cv2.waitKey(1) & 0xFF == ord('q') or cv2.waitKey(1) == 27:
         break
