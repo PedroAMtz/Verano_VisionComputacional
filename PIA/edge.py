@@ -95,9 +95,9 @@ while(cap.isOpened()):
 
     resized_canny = cv2.cvtColor(imgs_para_mostrar[0], cv2.COLOR_GRAY2BGR)
     resized_cropped = cv2.cvtColor(imgs_para_mostrar[1], cv2.COLOR_GRAY2BGR)
-    doble = np.hstack((resized_canny, resized_cropped, imgs_para_mostrar[2]), casting='safe')
+    triple = np.hstack((resized_canny, resized_cropped, imgs_para_mostrar[2]), casting='safe')
 
-    cv2.imshow("canny_edges", doble)
+    cv2.imshow("canny_edges", triple)
     
     if cv2.waitKey(1) & 0xFF == ord('q') or cv2.waitKey(1) == 27:
         break
