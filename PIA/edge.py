@@ -75,7 +75,7 @@ def resize_imagenes(lista_img):
 line_sd = cv2.createLineSegmentDetector()
 
 
-cap = cv2.VideoCapture("test_video.mp4")
+cap = cv2.VideoCapture("test1.mp4")
 frame_count = 0
 while(cap.isOpened()):
     _, frame = cap.read()
@@ -97,10 +97,11 @@ while(cap.isOpened()):
     resized_cropped = cv2.cvtColor(imgs_para_mostrar[1], cv2.COLOR_GRAY2BGR)
     triple = np.hstack((resized_canny, resized_cropped, imgs_para_mostrar[2]), casting='safe')
 
-    cv2.imshow("canny_edges", triple)
+    cv2.imshow("Demostracion final", triple)
     
     if cv2.waitKey(1) & 0xFF == ord('q') or cv2.waitKey(1) == 27:
         break
 
 cap.release()
+out.release()
 cv2.destroyAllWindows()
